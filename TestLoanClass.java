@@ -56,10 +56,37 @@ public class TestLoanClass {
 
 	  while (myLoanAmount >= myMonthlyPayment) {
 		  // to do A1 same as A2
+
+		  // Calculate monthly interest based on remaining loan balance
+		  interest = myLoanAmount * myMonthlyInterestRate;
+
+		  // Calculate how much of payment goes toward the principal
+		  principal = myMonthlyPayment - interest;
+
+		  // Subtract loan balance by principal paid
+		  myLoanAmount = myLoanAmount - principal;
+
+		  // Add extra payment only during the first month
+		  if (month == 0) {
+			  myLoanAmount = myLoanAmount - extraPay;
+		  }
+
+		  // Add current month's interest to total interest
+		  totalInterest += interest;
+
+		  // Increment month
+		  month++;
 		  
 	  }
 	  if (myLoanAmount < myMonthlyPayment) {
 		  // to do B1 same as B2
+
+		  // Finaly payment - calculate interest on remaining balance
+		  interest = myLoanAmount * myMonthlyInterestRate;
+
+		  // Add the final interest and count last month
+		  totalInterest += interest;
+		  month++;
 	  }
 	  double interestSaved = l.getTotalInterest() - totalInterest;
 	  /*
@@ -90,6 +117,12 @@ public class TestLoanClass {
 		  // add the interest paid this month to totalInterest
 		  // increment the month count
 
+		  interest = myLoanAmount * myMonthlyInterestRate;
+		  principal = myMonthlyPayment - interest;
+		  myLoanAmount = myLoanAmount - principal - extraPay;
+		  totalInterest = totalInterest + interest;
+		  month++;
+
 	  }
 	  while (myLoanAmount >= myMonthlyPayment) {
 		  // to do B2 same as B1
@@ -98,12 +131,22 @@ public class TestLoanClass {
 		  // caculate the new myLoanAmount after minus this month's principal
 		  // add the interest paid this month to totalInterest
 		  // increment the month count
+
+		  interest = myLoanAmount * myMonthlyInterestRate;
+		  principal = myMonthlyPayment - interest;
+		  myLoanAmount = myLoanAmount - principal;
+		  totalInterest = totalInterest + interest;
+		  month++;
 	  }
 	  if (myLoanAmount < myMonthlyPayment) {
 		  // to do
 		  // caculate the new month's interest based on myLoanAmount and myMonthlyInterestRate
 		  // add the interest paid this month to totalInterest
 		  // increment the month count
+
+		  interest = myLoanAmount * myMonthlyInterestRate;
+		  totalInterest = totalInterest + interest;
+		  month++;
 	  }
 	  double interestSaved = l.getTotalInterest() - totalInterest;
 	  System.out.printf("Total interest $%.2f%nTotal interest saved $%.2f%nTotal months %d %n",
